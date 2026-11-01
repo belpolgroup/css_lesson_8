@@ -1,0 +1,75 @@
+body {
+  background-color: #ddd;
+}
+
+.ribbon {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  padding-right: 5px;
+  padding-top: 5px;
+  align-items: center;
+}
+
+.ribbon img {
+  position: relative;
+  display: block;
+  border: 1px rgba(139, 0, 0, 0.15) solid;
+  border-radius: 5px;
+}
+
+.ribbon p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Красная лента */
+.ribbon p span {
+  transform: rotate(50deg);
+  display: inline-block;
+  text-align: center;
+  width: 170px;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #eee;
+  background: darkred;
+  padding: 5px 10px;
+  position: absolute;
+  top: 34px;
+  right: -43px;
+  z-index: 2;
+  box-shadow: 0px 8px 22px -10px rgba(0, 0, 0, 0.9);
+}
+
+/* Верхний левый загиб ленты */
+.ribbon p:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  z-index: 1;
+  top: -7px;
+  right: 100px;
+  border: 6px solid;
+  border-color: transparent transparent #4a0000 transparent;
+}
+
+/* Нижний правый загиб ленты */
+.ribbon p:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  z-index: 1;
+  top: 120px;
+  right: -7px;
+  border: 6px solid;
+  border-color: transparent transparent transparent #4a0000;
+}
+
+/*
+Эффект загиба ленты формируется за счёт применения псевдоэлементов и применения свойсв 
+content, border (именно это св-во рисует треугольник), border-color, z-index, position, 
+а также за счёт точного позиционирования псевдоэлементов
+*/
