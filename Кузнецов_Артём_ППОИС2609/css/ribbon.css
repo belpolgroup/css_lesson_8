@@ -1,0 +1,72 @@
+/* обертка для фотки и ленты */
+.ribbon {
+    color: #9ac42c;
+    position: relative; /* точка отсчета для позиционирования ленточки */
+    display: inline-block;
+    overflow: hidden; /* обрезает углы ленты чтоб не торчали за блок */
+    padding: 5px;
+    font-weight: 900;
+    font-family: Arial, sans-serif;
+}
+
+.ribbon img {
+    display: block; /* убирает лишний строчный зазор справа от картинки, чтобы уголок тени не отъезжал от края ленты */
+}
+
+.ribbon p {
+    display: inline;
+}
+
+/* сама полоска ленточки */
+.ribbon p span {
+    /* свой угол 35 град + вендорные префиксы для старых движков */
+    -moz-transform: rotate(35deg);
+    -ms-transform: rotate(35deg);
+    -webkit-transform: rotate(35deg);
+    -o-transform: rotate(35deg);
+    transform: rotate(35deg);
+    display: inline-block;
+    text-align: center;
+    width: 115px; /* чуть шире чем в методичке, т.к. из-за угла 35 град диагональ длиннее */
+    font-size: 14px; /* немного уменьшил шрифт чтобы длинное слово смородина ровно влезло */
+    text-transform: uppercase;
+    padding: 3px 10px;
+    background: #d93131;
+    position: absolute; /* ставим ленту в правый верхний угол */
+    top: 18px;
+    right: -25px;
+    /* сдвинул внешнюю тень чуть влево-вниз (-6px 4px) и поджал спредом (-3px), чтобы она доходила ровно до уголка загиба и не давала вертикальную черту на срезе */
+    box-shadow: -6px 4px 4px -3px rgba(0,0,0,0.22), inset 0px 5px 30px rgba(255,255,255,0.3);
+}
+
+/* левый загиб ленты */
+.ribbon p:before {
+    content: "";
+    width: 0;
+    position: absolute;
+    height: 0;
+    top: -17px;
+    /* делаем треугольник через бордер, 3 стороны прозрачные, одна серая */
+    border-color: transparent transparent #eeeeee transparent;
+    z-index: -1; /* прячем под ленточку */
+    right: 88px; /* подогнал сдвиг под угол 35 градусов (верхний край ушел левее) */
+    border: 17px solid;
+}
+
+/* правый загиб ленты */
+.ribbon p:after {
+    content: "";
+    width: 0;
+    position: absolute;
+    height: 0;
+    top: 59px; /* подогнал высоту и сдвиг под угол 35 град, чтобы уголок загиба стыковался вплотную к правому краю ленты */
+    border: 17px solid;
+    z-index: -1; /* под ленту */
+    border-color: #eeeeee transparent transparent transparent;
+    right: -12px;
+}
+
+/* 
+1. За счет каких свойств CSS создается трехмерный эффект «загиба» ленты за край картинки?
+Ответ: Трехмерный эффект загиба создается с помощью псевдоэлементов :before и :after. Мы задаем им нулевую ширину и высоту (width: 0, height: 0), а форму треугольника формируем за счет толстых рамок (border: 17px solid), где одна сторона цветная, а остальные делаются прозрачными (transparent). Отрицательный z-index прячет загиб под саму ленту.
+*/
